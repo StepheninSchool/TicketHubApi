@@ -5,6 +5,8 @@ using Microsoft.Extensions.Logging;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.OpenApi.Models;
+using System.Text.Encodings;
+using System.Text;
 
 namespace TicketHubApi.Controllers
 {
@@ -49,8 +51,14 @@ namespace TicketHubApi.Controllers
                 // Serialize the ticket object to JSON
                 string message = JsonSerializer.Serialize(ticket);
 
+                // Send the message to the queue (encoded as c4b64)
+                // This is a Base64 encoding of the UTF-8 bytes of the message
+                var plainTextBytes = Encoding.UTF8.GetBytes(message);
+                
+                var base64Message = Convert.ToBase64String(plainTextBytes);
+
                 // Send the message to the queue
-                await queueClient.SendMessageAsync(message);
+                await queueClient.SendMessageAsync(Convert.ToBase64String(plainTextBytes));
 
                 _logger.LogInformation("Ticket ({ConcertId}) added to Azure tickethub queue", ticket.ConcertId);
 
