@@ -7,11 +7,13 @@ using System.Threading.Tasks;
 using Microsoft.OpenApi.Models;
 using System.Text.Encodings;
 using System.Text;
+using Microsoft.AspNetCore.Cors;
 
 namespace TicketHubApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("AllowAll")]
     public class TicketsController : ControllerBase
     {
         private readonly ILogger<TicketsController> _logger;
