@@ -32,7 +32,7 @@ namespace TicketHubApi.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post(Ticket ticket)
+        public async Task<IActionResult> Post([FromBody] Ticket ticket)
         {
             // Send ticket to Azure queue
             string queueName = "tickets";
