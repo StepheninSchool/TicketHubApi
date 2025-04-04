@@ -33,7 +33,7 @@ namespace TicketHubApi.Controllers
         public async Task<IActionResult> Post(Ticket ticket)
         {
             // Send ticket to Azure queue
-            string queueName = "tickethub";
+            string queueName = "tickets";
 
             // Get connection string from configuration
             string? connectionString = _configuration["AzureStorageConnectionString"];
