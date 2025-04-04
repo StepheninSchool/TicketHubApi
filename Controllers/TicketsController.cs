@@ -7,13 +7,11 @@ using System.Threading.Tasks;
 using Microsoft.OpenApi.Models;
 using System.Text.Encodings;
 using System.Text;
-using Microsoft.AspNetCore.Cors;
 
 namespace TicketHubApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [EnableCors("AllowAll")]
     public class TicketsController : ControllerBase
     {
         private readonly ILogger<TicketsController> _logger;
@@ -56,7 +54,7 @@ namespace TicketHubApi.Controllers
                 // Send the message to the queue (encoded as c4b64)
                 // This is a Base64 encoding of the UTF-8 bytes of the message
                 var plainTextBytes = Encoding.UTF8.GetBytes(message);
-                
+
                 var base64Message = Convert.ToBase64String(plainTextBytes);
 
                 // Send the message to the queue
